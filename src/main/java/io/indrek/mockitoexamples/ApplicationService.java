@@ -14,8 +14,6 @@ public class ApplicationService {
     }
 
     private Application generateApplication(Applicant applicant) {
-        Application application = new Application();
-        application.setApplicantName(applicant.getName());
-        return application;
+        return new Application(applicant.getName());
     }
 }
