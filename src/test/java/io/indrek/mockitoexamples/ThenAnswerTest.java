@@ -22,16 +22,18 @@ public class ThenAnswerTest {
 
     @Test
     public void testThenAnswer() throws Exception {
-        when(appService.processNextApplicant()).thenAnswer(new Answer<Application>() {
+        when(applicantQueue.getNextApplicant()).thenAnswer(new Answer<Applicant>() {
             private int counter;
             private String[] names = new String[] {"Mario", "Luigi", "Bowser"};
 
             @Override
-            public Application answer(InvocationOnMock invocationOnMock) throws Throwable {
-                return new Application(names[counter++]);
+            public Applicant answer(InvocationOnMock invocationOnMock) throws Throwable {
+                return new Applicant(names[counter++]);
             }
         });
 
         assertEquals("Mario", appService.processNextApplicant().getApplicantName());
+        assertEquals("Luigi", appService.processNextApplicant().getApplicantName());
+        assertEquals("Bowser", appService.processNextApplicant().getApplicantName());
     }
 }
